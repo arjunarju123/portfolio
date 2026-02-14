@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arjun Portfolio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body { background:#000; color:white; scroll-behavior:smooth; }
+
+.card {
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+/* Reveal Animation */
+.reveal { opacity:0; transition:all 1s ease; }
+.reveal-left { transform:translateX(-80px); }
+.reveal-right { transform:translateX(80px); }
+.reveal.active { opacity:1; transform:translateX(0); }
+
+/* Cursor glow */
+.cursor-dot{
+  position:fixed;
+  width:8px;
+  height:8px;
+  background:#00ffff;
+  border-radius:50%;
+  pointer-events:none;
+  box-shadow:0 0 10px #00ffff,0 0 20px #00ffff;
+  z-index:9999;
+}
+</style>
+</head>
+
+<body class="font-sans overflow-x-hidden">
+
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 reveal reveal-left">
+
+<img src="assets/profile.jpg"
+class="w-48 h-48 rounded-full object-cover border border-white/20 shadow-xl mb-6 transition hover:scale-110">
+
+<h1 class="text-4xl md:text-6xl font-bold mb-3">Arjun</h1>
+
+<p class="text-lg text-gray-300 mb-2">
+Certified Ethical Hacker
+</p>
+
+<p class="text-gray-500 mb-6">Kerala, India</p>
+
+<p class="max-w-xl text-gray-400 mb-8">
+Cybersecurity professional focused on penetration testing, SOC monitoring,
+and threat detection. Passionate about protecting systems and building secure
+digital environments.
+</p>
+
+<div class="flex flex-wrap justify-center gap-4">
+<button class="border px-4 py-2 rounded-xl hover:scale-110 transition">
+My Resume
+</button>
+
+<a href="https://github.com" target="_blank"
+class="border px-4 py-2 rounded-xl hover:scale-110 transition">GitHub</a>
+
+<a href="https://tryhackme.com/p/ppkunjumon" target="_blank"
+class="border px-4 py-2 rounded-xl hover:scale-110 transition">TryHackMe</a>
+
+<a href="https://www.linkedin.com/in/arjun-a-454b85256" target="_blank"
+class="border px-4 py-2 rounded-xl hover:scale-110 transition">LinkedIn</a>
+
+<a href="https://x.com/p_p_kunjumon" target="_blank"
+class="border px-4 py-2 rounded-xl hover:scale-110 transition">X</a>
+
+</div>
+
+</section>
+
+<!-- Skills -->
+<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-right">
+<h2 class="text-3xl font-semibold mb-12 text-center">Core Skills</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+<div class="card p-6 text-center rounded-xl hover:scale-105 transition">Penetration Testing</div>
+<div class="card p-6 text-center rounded-xl hover:scale-105 transition">SOC Monitoring</div>
+<div class="card p-6 text-center rounded-xl hover:scale-105 transition">SIEM Management</div>
+<div class="card p-6 text-center rounded-xl hover:scale-105 transition">Threat Hunting</div>
+<div class="card p-6 text-center rounded-xl hover:scale-105 transition">Web App Testing</div>
+<div class="card p-6 text-center rounded-xl hover:scale-105 transition">Network Security</div>
+</div>
+</section>
+
+<!-- Projects -->
+<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-left">
+<h2 class="text-3xl font-semibold mb-12 text-center">Projects</h2>
+
+<div class="grid md:grid-cols-2 gap-8">
+
+<div class="card rounded-xl overflow-hidden hover:scale-105 transition">
+<img src="https://via.placeholder.com/600x300">
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">
+Centralized Security Monitoring using Wazuh
+</h3>
+<p class="text-gray-400">
+Implemented centralized monitoring using Wazuh SIEM.
+</p>
+</div>
+</div>
+
+<div class="card rounded-xl overflow-hidden hover:scale-105 transition">
+<img src="https://via.placeholder.com/600x300">
+<div class="p-6">
+<h3 class="text-xl font-semibold mb-2">
+Server Administration & Security Hardening
+</h3>
+<p class="text-gray-400">
+Configured servers with security best practices.
+</p>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- Certifications -->
+<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-right">
+<h2 class="text-3xl font-semibold mb-12 text-center">
+Certifications
+</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+<div class="card p-6 rounded-xl hover:scale-105 transition">Certified Ethical Hacker</div>
+<div class="card p-6 rounded-xl hover:scale-105 transition">Advanced Diploma in Cyber Defence</div>
+</div>
+</section>
+
+<!-- Contact Form -->
+<section class="py-20 text-center px-6 reveal reveal-left">
+<h2 class="text-3xl font-semibold mb-8">Contact Me</h2>
+
+<form id="contactForm" class="max-w-xl mx-auto space-y-3">
+
+<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
+type="text" name="entry.1" placeholder="Name" required>
+
+<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
+type="text" name="entry.2" placeholder="Age" required>
+
+<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
+type="tel" name="entry.3" placeholder="Mobile Number" required>
+
+<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
+type="email" name="entry.4" placeholder="Email Address" required>
+
+<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
+type="text" name="entry.5" placeholder="Message" required>
+
+<input class="w-full bg-green-600 p-3 cursor-pointer hover:bg-green-700"
+type="submit" value="Send Message">
+
+<!-- About -->
+<div class="mt-16 text-center leading-relaxed reveal reveal-right">
+<h2 class="text-green-400 text-xl mb-2">About Me</h2>
+<p>
+Cybersecurity enthusiast skilled in penetration testing, network security,
+and threat analysis. Trained at RedTeam Hackers Academy and actively
+building hands-on experience in SOC monitoring and security operations.
+</p>
+</div>
+
+
+</form>
+
+<p class="text-gray-500 mt-10">© 2026 Arjun</p>
+
+</section>
+
+<!-- Thank you popup -->
+<div id="thanksPopup"
+class="fixed inset-0 hidden items-center justify-center bg-black/60">
+<div class="bg-white text-black px-8 py-6 rounded-xl text-center">
+<h2 class="text-xl font-semibold mb-2">✅ Thank You!</h2>
+<p>Your message has been submitted successfully.</p>
+</div>
+</div>
+
+<script>
+// Reveal effect
+function handleScroll(){
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight - 80){
+      el.classList.add('active');
+    }
+  });
+}
+window.addEventListener('scroll', handleScroll);
+setTimeout(handleScroll, 200);
+
+// Cursor glow
+document.onmousemove = e=>{
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  dot.style.left = e.clientX+'px';
+  dot.style.top = e.clientY+'px';
+  document.body.appendChild(dot);
+  setTimeout(()=>dot.remove(),300);
+};
+
+// Form submit
+document.getElementById("contactForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  fetch("https://script.google.com/macros/s/AKfycbw6ewGnAic3cLPz6xfXz74Ap3OfD1GSfflBwbrtCtMkporFLHE7EUS2AZRP4MwbVZYLEw/exec",{
+    method:"POST",
+    body:new FormData(this),
+    mode:"no-cors"
+  });
+
+  this.reset();
+
+  const popup=document.getElementById("thanksPopup");
+  popup.classList.remove("hidden");
+  popup.classList.add("flex");
+
+  setTimeout(()=>{
+    popup.classList.add("hidden");
+    popup.classList.remove("flex");
+  },3000);
+});
+</script>
+
+</body>
+</html>
+
