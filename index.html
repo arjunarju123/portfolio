@@ -314,13 +314,23 @@ security event analysis, incident response and identifying vulnerabilities in we
 
 <!-- Thank you popup -->
 <div id="thanksPopup"
-class="fixed inset-0 hidden items-center justify-center bg-black/60">
-<div class="bg-white text-black px-8 py-6 rounded-xl text-center">
+class="fixed inset-0 hidden items-center justify-center bg-black/70 overflow-hidden">
+
+<div id="popupBox"
+class="bg-white text-black px-8 py-6 rounded-xl text-center popup-animate">
+
 <h2 class="text-xl font-semibold mb-2">✅ Thank You!</h2>
-<p>Submitted successfully.
-We only use your details to respond!.</p>
+<p>
+Submitted successfully.<br>
+We only use your details to respond!.
+</p>
+
 </div>
+
+<div id="blast"></div>
+
 </div>
+
 
 <script>
 // Reveal effect
@@ -369,6 +379,7 @@ document.getElementById("contactForm").addEventListener("submit",function(e){
 
 </body>
 </html>
+
 
 
 
