@@ -470,22 +470,7 @@ document.addEventListener("mousemove", e=>{
   cursor.style.left = e.clientX + "px";
   cursor.style.top = e.clientY + "px";
 });
-  a, button{
-  transition:all 0.3s ease;
-}
 
-a:hover, button:hover{
-  box-shadow:0 0 12px rgba(0,255,136,0.5);
-}
-@media(max-width:768px){
-  body{
-    cursor:auto;
-  }
-
-  .cursor-dot{
-    display:none;
-  }
-}
   
 // Form submit
 document.getElementById("contactForm").addEventListener("submit",function(e){
