@@ -161,8 +161,7 @@ class="border px-4 py-2 rounded-xl hover:scale-110 transition">Instagram</a>
 <div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">SIEM Management</div>
 <div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Threat Hunting</div>
 <div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Web App Testing</div>
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Network Security</div>
-  <div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Cloud Security & Cloud Compuing </div>
+<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Network & Cloud Security</div>
 </div>
 </section>
 
@@ -337,11 +336,11 @@ Tools & Technologies
 
   <!-- cloud security -->
 <div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">Cloud Security & cloud Computing </h3>
+<h3 class="text-xl mb-4 text-green-400 text-center"> Cloud Security & Cloud Computing </h3>
 <ul class="space-y-2 text-gray-300 text-center">
 <li>Microsoft Azure Cloud Security</li>
-<li> microsoft sentinel</li>
-<li>Microsoft Cloud Computing</li>
+<li> Microsoft Sentinel</li>
+<li> Microsoft Cloud Computing</li>
 </ul>
 </div>
   
@@ -463,15 +462,31 @@ setTimeout(handleScroll, 200);
 
 
 // Cursor glow
-document.onmousemove = e=>{
-  const dot = document.createElement('div');
-  dot.className = 'cursor-dot';
-  dot.style.left = e.clientX+'px';
-  dot.style.top = e.clientY+'px';
-  document.body.appendChild(dot);
-  setTimeout(()=>dot.remove(),300);
-};
+const cursor = document.createElement("div");
+cursor.className = "cursor-dot";
+document.body.appendChild(cursor);
 
+document.addEventListener("mousemove", e=>{
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+  a, button{
+  transition:all 0.3s ease;
+}
+
+a:hover, button:hover{
+  box-shadow:0 0 12px rgba(0,255,136,0.5);
+}
+@media(max-width:768px){
+  body{
+    cursor:auto;
+  }
+
+  .cursor-dot{
+    display:none;
+  }
+}
+  
 // Form submit
 document.getElementById("contactForm").addEventListener("submit",function(e){
   e.preventDefault();
