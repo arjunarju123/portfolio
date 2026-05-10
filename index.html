@@ -100,6 +100,24 @@ body::before{
   100%{opacity:0; transform:scale(30);}
 }
   
+a, button{
+  transition:all 0.3s ease;
+}
+
+a:hover, button:hover{
+  box-shadow:0 0 12px rgba(0,255,136,0.5);
+}
+
+@media(max-width:768px){
+  body{
+    cursor:auto;
+  }
+
+  .cursor-dot{
+    display:none;
+  }
+}
+
 </style>
 </head>
 
@@ -459,15 +477,17 @@ setTimeout(handleScroll, 200);
 
 
 // Cursor glow
+
 document.onmousemove = e=>{
   const dot = document.createElement('div');
   dot.className = 'cursor-dot';
   dot.style.left = e.clientX+'px';
   dot.style.top = e.clientY+'px';
   document.body.appendChild(dot);
-  setTimeout(()=>dot.remove(),300);
-};
-  
+  setTimeout(()=>dot.remove(),280);
+};  
+
+
 // Form submit
 document.getElementById("contactForm").addEventListener("submit",function(e){
   e.preventDefault();
