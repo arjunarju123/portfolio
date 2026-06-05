@@ -1,587 +1,1091 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Font Awesome Icons -->
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arjun Portfolio</title>
+<title>Arjun — Cybersecurity Specialist</title>
 
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- Hacker Font -->
-<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-  
-body{
-  background:#000;
-  color:#00ff88;
-  scroll-behavior:smooth;
-  cursor:none;
+:root {
+  --bg:        #060810;
+  --surface:   #0c1020;
+  --surface2:  #111827;
+  --border:    rgba(0,255,140,0.15);
+  --accent:    #00ff8c;
+  --accent2:   #00c8ff;
+  --accent3:   #7b61ff;
+  --text:      #e2e8f0;
+  --muted:     #64748b;
+  --mono:      'Space Mono', monospace;
+  --sans:      'Syne', sans-serif;
 }
 
-  /* Terminal font only for paragraphs & lists */
-p, li, h4{
-  font-family: 'Fira Code', monospace;
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+  cursor: none;
 }
 
-/* Grid background */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
+/* ── Cursor ── */
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.15s ease, opacity 0.3s;
+  transform: translate(-50%,-50%);
+}
+#cursor-dot {
+  position: fixed;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  box-shadow: 0 0 10px var(--accent);
+}
+@media(max-width:768px){
+  #cursor-ring,#cursor-dot { display:none; }
+  body { cursor:auto; }
+}
+
+/* ── Background grid ── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
   background:
-    linear-gradient(rgba(0,255,136,0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,136,0.08) 1px, transparent 1px);
-  background-size:40px 40px;
-  z-index:-1;
+    linear-gradient(rgba(0,255,140,0.04) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(0,255,140,0.04) 1px, transparent 1px);
+  background-size:60px 60px;
+  z-index:-2;
 }
 
-.card {
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.1);
+/* ── Navbar ── */
+nav {
+  position: fixed; top:0; left:0; right:0;
+  z-index:100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(1.5rem,5vw,4rem);
+  height: 64px;
+  background: rgba(6,8,16,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
 }
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
 
-/* Reveal Animation */
-.reveal { opacity:0; transition:all 1s ease; }
-.reveal-left { transform:translateX(-80px); }
-.reveal-right { transform:translateX(80px); }
-.reveal.active { opacity:1; transform:translateX(0); }
-
-/* Cursor glow */
-.cursor-dot{
-  position:fixed;
-  width:8px;
-  height:8px;
-  background:#00ffff;
-  border-radius:50%;
-  pointer-events:none;
-  box-shadow:0 0 10px #00ffff,0 0 20px #00ffff;
-  z-index:9999;
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
 }
-/* Popup animation */
-.popup-animate{
-  animation: virusIn 0.6s ease,
-             stay 1.3s linear 0.6s,
-             fadeOut 0.6s ease 1.9s forwards;
-}
-
-@keyframes virusIn{
-  0%{transform:scale(0.2) rotate(20deg); filter:blur(6px); opacity:0;}
-  60%{transform:scale(1.1);}
-  100%{transform:scale(1); filter:blur(0); opacity:1;}
-}
-
-@keyframes stay{
-  from{opacity:1;}
-  to{opacity:1;}
-}
-
-@keyframes fadeOut{
-  to{opacity:0; transform:scale(0.9);}
-}
-
-/* blast flash */
-#blast{
-  position:absolute;
-  width:40px;
-  height:40px;
-  background:white;
-  border-radius:50%;
-  opacity:0;
-  animation: blastEffect 0.6s ease 1.7s forwards;
-}
-
-@keyframes blastEffect{
-  0%{opacity:0.8; transform:scale(1);}
-  100%{opacity:0; transform:scale(30);}
-}
-  
-a, button{
-  transition:all 0.3s ease;
-}
-
-a:hover, button:hover{
-  box-shadow:0 0 12px rgba(0,255,136,0.5);
+.nav-hamburger span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--accent);
+  transition: all 0.3s;
 }
 
 @media(max-width:768px){
-  body{
-    cursor:auto;
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top:64px; left:0; right:0;
+    background: rgba(6,8,16,0.97);
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border);
   }
-
-  .cursor-dot{
-    display:none;
-  }
+  .nav-links.open { display:flex; }
+  .nav-hamburger { display:flex; }
 }
 
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 6rem clamp(1.5rem,5vw,4rem) 4rem;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 0.35rem 1rem;
+  border-radius: 100px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  animation: fadeDown 0.6s ease both;
+}
+.hero-badge::before {
+  content:'';
+  width:6px; height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,100%{ opacity:1; }
+  50%{ opacity:0.3; }
+}
+
+.hero-avatar {
+  width: clamp(100px,20vw,140px);
+  height: clamp(100px,20vw,140px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  margin-bottom: 2rem;
+  animation: fadeDown 0.7s ease 0.1s both;
+  box-shadow: 0 0 40px rgba(0,255,140,0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.hero-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 60px rgba(0,255,140,0.25);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem,8vw,5.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  animation: fadeDown 0.7s ease 0.2s both;
+  background: linear-gradient(135deg, #fff 40%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-title {
+  font-family: var(--mono);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  color: var(--accent2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 1rem 0 0.5rem;
+  animation: fadeDown 0.7s ease 0.3s both;
+}
+
+.hero-location {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  animation: fadeDown 0.7s ease 0.35s both;
+}
+
+.hero-bio {
+  max-width: 560px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  animation: fadeDown 0.7s ease 0.4s both;
+}
+
+.hero-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  animation: fadeDown 0.7s ease 0.5s both;
+}
+.hero-links a {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.hero-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,255,140,0.05);
+  transform: translateY(-2px);
+}
+.hero-links a.primary {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  font-weight: 700;
+}
+.hero-links a.primary:hover {
+  background: #00e07a;
+  color: #000;
+}
+
+/* ── Scroll hint ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  animation: fadeDown 1s ease 0.8s both;
+}
+.scroll-hint-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(var(--accent),transparent);
+  animation: scrollLine 1.5s ease infinite;
+}
+@keyframes scrollLine {
+  0%{ opacity:0; transform:scaleY(0); transform-origin:top; }
+  50%{ opacity:1; transform:scaleY(1); }
+  100%{ opacity:0; transform:scaleY(0); transform-origin:bottom; }
+}
+
+/* ── Section base ── */
+section { padding: clamp(4rem,10vh,6rem) clamp(1.5rem,5vw,4rem); }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-size: clamp(1.8rem,5vw,2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 3rem;
+}
+
+/* ── Reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Skills ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+  gap: 1rem;
+}
+.skill-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text);
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.skill-chip::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0;
+  height:2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.skill-chip:hover::before { transform:scaleX(1); }
+.skill-chip:hover {
+  border-color: rgba(0,255,140,0.4);
+  background: rgba(0,255,140,0.04);
+  transform: translateY(-3px);
+  color: var(--accent);
+}
+.skill-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+/* ── Projects ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap: 1.5rem;
+}
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.75rem;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.project-card::after {
+  content:'';
+  position:absolute; inset:0;
+  background: linear-gradient(135deg, rgba(0,255,140,0.04), transparent);
+  opacity:0;
+  transition: opacity 0.3s;
+}
+.project-card:hover::after { opacity:1; }
+.project-card:hover {
+  border-color: rgba(0,255,140,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.project-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.project-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+.project-card p {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.project-arrow {
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* ── Experience ── */
+.exp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  gap: 1.5rem;
+}
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+.exp-card:hover {
+  border-color: rgba(0,255,140,0.3);
+  transform: translateY(-3px);
+}
+.exp-org {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.exp-role {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.exp-year {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+.exp-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.exp-list li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 1.1rem;
+  position: relative;
+}
+.exp-list li::before {
+  content:'▸';
+  position:absolute; left:0;
+  color: var(--accent);
+  font-size: 0.7rem;
+  top: 0.25rem;
+}
+
+/* ── Certifications ── */
+.certs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 1rem;
+}
+.cert-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.cert-card:hover {
+  border-color: rgba(0,255,140,0.3);
+  transform: translateY(-3px);
+}
+.cert-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.cert-card h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  line-height: 1.3;
+}
+.cert-card p {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* ── Tools ── */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+  gap: 1.25rem;
+}
+.tool-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s;
+}
+.tool-group:hover {
+  border-color: rgba(0,255,140,0.25);
+  transform: translateY(-2px);
+}
+.tool-group-title {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.tool-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.tool-list li {
+  font-size: 0.85rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tool-list li::before {
+  content:'';
+  width: 4px; height: 4px;
+  border-radius:50%;
+  background: var(--accent2);
+  flex-shrink: 0;
+}
+
+/* ── Contact ── */
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+@media(max-width:768px){ .contact-wrap { grid-template-columns:1fr; gap:2.5rem; } }
+
+.contact-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+.contact-info p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.social-link {
+  width: 42px; height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.25s;
+}
+.social-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,255,140,0.05);
+  transform: translateY(-2px);
+}
+
+.contact-form { display:flex; flex-direction:column; gap:1rem; }
+.form-group { display:flex; flex-direction:column; gap:0.4rem; }
+.form-group label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.contact-form input,
+.contact-form textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: rgba(0,255,140,0.5);
+}
+.contact-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: var(--muted); }
+
+.btn-submit {
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 2rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+  align-self: flex-start;
+}
+.btn-submit:hover {
+  background: #00e07a;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,255,140,0.3);
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* ── Thank you popup ── */
+.popup-overlay {
+  position:fixed; inset:0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+.popup-overlay.active { display:flex; }
+.popup-box {
+  background: var(--surface2);
+  border: 1px solid rgba(0,255,140,0.3);
+  border-radius: 16px;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  max-width: 380px;
+  width: 90%;
+  animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes popIn {
+  from{ opacity:0; transform:scale(0.7); }
+  to{ opacity:1; transform:scale(1); }
+}
+.popup-box .check {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.popup-box h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.popup-box p {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ── Animations ── */
+@keyframes fadeDown {
+  from { opacity:0; transform:translateY(-20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* Divider */
+.divider {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  margin-bottom: 3rem;
+}
 </style>
 </head>
 
-<body class="font-sans overflow-x-hidden">
+<body>
 
-<!-- Hero Section -->
-<section class="min-h-screen flex flex-col justify-center items-center text-center px-6 reveal reveal-left">
+<!-- Custom cursor -->
+<div id="cursor-ring"></div>
+<div id="cursor-dot"></div>
 
-<img src="assets/profile.jpg"
-class="w-48 h-48 rounded-full object-cover border border-white/20 shadow-xl mb-6 transition hover:scale-110">
+<!-- Navbar -->
+<nav>
+  <div class="nav-logo">arjun.sec</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certs">Certs</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
 
-<h1 class="text-4xl md:text-6xl font-bold mb-3">Arjun</h1>
-
-<p class="text-lg text-gray-300 mb-2">
-Cybersecurity Specialist | SOC & VAPT
-</p>
-
-<p class="text-gray-500 mb-6">Kerala, India</p>
-
-<p class="max-w-xl text-gray-400 mb-8">
-Cybersecurity professional with hands-on experience in SOC monitoring, SIEM deployment, threat detection, vulnerability assessment andpenetration testing. Skilled in Wazuh, Splunk, Burp Suite,Wireshark, OpenVAS, Azure and Windows Server Administration.Passionate about securing enterprise environments and improving cyber defense operations.
-</p>
-  
-<div class="flex flex-wrap justify-center gap-4">
-<a href="assets/ARJUN_A.pdf" download
-class="border px-4 py-2 rounded-xl hover:scale-110 transition">
-My Resume
-</a>
-  
-<a href="https://github.com/arjunarju123" target="_blank"
-class="border px-4 py-2 rounded-xl hover:scale-110 transition">GitHub</a>
-
-<a href="https://tryhackme.com/p/ppkunjumon" target="_blank"
-class="border px-4 py-2 rounded-xl hover:scale-110 transition">TryHackMe</a>
-
-<a href="https://www.linkedin.com/in/arjun-a-454b85256" target="_blank"
-class="border px-4 py-2 rounded-xl hover:scale-110 transition">LinkedIn</a>
-
-<a href="https://x.com/p_p_kunjumon" target="_blank"
-class="border px-4 py-2 rounded-xl hover:scale-110 transition">X</a>
-
-  <a href="https://www.instagram.com/p_p_kunjumon?igsh=Zjg5eTM0eXUybXhk" target="_blank"
-class="border px-4 py-2 rounded-xl hover:scale-110 transition">Instagram</a>
-
-</div>
-
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-badge">Available for opportunities</div>
+  <img src="assets/profile.jpg" alt="Arjun" class="hero-avatar">
+  <h1>Arjun</h1>
+  <p class="hero-title">Cybersecurity Specialist · SOC & VAPT</p>
+  <p class="hero-location"><i class="fas fa-location-dot" style="color:var(--accent);margin-right:.4rem;"></i>Kerala, India</p>
+  <p class="hero-bio">
+    Cybersecurity professional with hands-on experience in SOC monitoring, SIEM deployment, threat detection, vulnerability assessment and penetration testing. Skilled in Wazuh, Splunk, Burp Suite, Wireshark, OpenVAS, Azure and Windows Server Administration.
+  </p>
+  <div class="hero-links">
+    <a href="assets/ARJUN_A.pdf" download class="primary"><i class="fas fa-download"></i> Resume</a>
+    <a href="https://github.com/arjunarju123" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://tryhackme.com/p/ppkunjumon" target="_blank"><i class="fas fa-skull-crossbones"></i> TryHackMe</a>
+    <a href="https://www.linkedin.com/in/arjun-a-454b85256" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+    <a href="https://x.com/p_p_kunjumon" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+    <a href="https://www.instagram.com/p_p_kunjumon" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+  </div>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-hint-line"></div>
+  </div>
 </section>
 
 <!-- Skills -->
-<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-right">
-<h2 class="text-3xl font-semibold mb-12 text-center">Core Skills</h2>
-
-<div class="grid md:grid-cols-3 gap-6">
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Penetration Testing</div>
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">SOC Monitoring</div>
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">SIEM Management</div>
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Threat Hunting</div>
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Web App Testing</div>
-<div class="card p-6 text-center rounded-xl border-green-500 hover:scale-105 transition">Network & Cloud Security</div>
-</div>
+<section id="skills">
+  <div class="section-inner reveal">
+    <div class="section-label">// 01 — expertise</div>
+    <h2 class="section-title">Core Skills</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+      <div class="skill-chip"><span class="skill-icon">🎯</span>Penetration Testing</div>
+      <div class="skill-chip"><span class="skill-icon">📡</span>SOC Monitoring</div>
+      <div class="skill-chip"><span class="skill-icon">📊</span>SIEM Management</div>
+      <div class="skill-chip"><span class="skill-icon">🔍</span>Threat Hunting</div>
+      <div class="skill-chip"><span class="skill-icon">🌐</span>Web App Testing</div>
+      <div class="skill-chip"><span class="skill-icon">☁️</span>Cloud Security</div>
+      <div class="skill-chip"><span class="skill-icon">🔒</span>Incident Response</div>
+      <div class="skill-chip"><span class="skill-icon">🛡️</span>Network Security</div>
+      <div class="skill-chip"><span class="skill-icon">🖥️</span>Server Hardening</div>
+    </div>
+  </div>
 </section>
 
 <!-- Projects -->
-<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-left">
-<h2 class="text-3xl font-semibold mb-12 text-center">Projects</h2>
+<section id="projects">
+  <div class="section-inner reveal">
+    <div class="section-label">// 02 — work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
 
-<div class="grid md:grid-cols-2 gap-8">
+      <a class="project-card" href="https://github.com/arjunarju123/Security-Operations-SOC---Enterprise-EDR-Threat-Hunting-Grid" target="_blank">
+        <div class="project-tag">SOC · SIEM · EDR</div>
+        <h3>SOC — Enterprise EDR & Threat Hunting Grid</h3>
+        <p>Deployed Wazuh SIEM with EDR capabilities and simulated enterprise-level threat scenarios for real-world detection practice.</p>
+        <div class="project-arrow"><i class="fab fa-github"></i> View on GitHub →</div>
+      </a>
 
-<div class="card rounded-xl border-green-500 overflow-hidden hover:scale-105 transition">
-<div class="p-6">
+      <a class="project-card" href="https://github.com/arjunarju123/Vulnvision-360" target="_blank">
+        <div class="project-tag">VAPT · Compliance · Automation</div>
+        <h3>VulnVision 360</h3>
+        <p>A continuous compliance and threat exposure engine built for persistent vulnerability tracking across enterprise environments.</p>
+        <div class="project-arrow"><i class="fab fa-github"></i> View on GitHub →</div>
+      </a>
 
-<a href="https://github.com/arjunarju123/Security-Operations-SOC---Enterprise-EDR-Threat-Hunting-Grid" target="_blank">
-<h3 class="text-xl font-semibold mb-2">
-SOC - Enterprise EDR and Threat Hunting grid
-</h3>
-<p class="text-gray-400">
- Wazuh SIEM, EDR & Threat Simulation
-</p>
-</a>
-</div>
-</div>
+      <div class="project-card" style="cursor:default;">
+        <div class="project-tag">Server · Hardening</div>
+        <h3>Server Administration & Security Hardening</h3>
+        <p>Configured Windows Server and Linux environments with security best practices, access controls and audit policies.</p>
+        <div class="project-arrow" style="color:var(--muted);">Personal Lab</div>
+      </div>
 
-<div class="card rounded-xl border-green-500 overflow-hidden hover:scale-105 transition">
-<div class="p-6">
-
-<a href="https://github.com/arjunarju123/Vulnvision-360" target="_blank">
-<h3 class="text-xl font-semibold mb-2">
-VulnVision 360
-</h3>
-<p class="text-gray-400">
-Continuous Compliance & Threat Exposure Engine  
-</p>
-</a>
-
-</div>
-</div>
-
-<div class="card rounded-xl border-green-500 overflow-hidden hover:scale-105 transition">
-<div class="p-6">
-<h3 class="text-xl font-semibold mb-2">
-Server Administration & Security Hardening
-</h3>
-<p class="text-gray-400">
-Configured servers with security best practices.
-</p>
-</div>
-</div>
-
-</div>
+    </div>
+  </div>
 </section>
 
-  <!-- Internship Experience -->
-<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-right">
+<!-- Experience -->
+<section id="experience">
+  <div class="section-inner reveal">
+    <div class="section-label">// 03 — background</div>
+    <h2 class="section-title">Experience</h2>
+    <div class="divider"></div>
+    <div class="exp-grid">
 
-<h2 class="text-3xl font-semibold mb-12 text-center">
-Internship Experience
-</h2>
+      <div class="exp-card">
+        <div class="exp-org">RedTeam Hackers Academy</div>
+        <div class="exp-role">Cybersecurity Intern</div>
+        <div class="exp-year">2025</div>
+        <ul class="exp-list">
+          <li>Vulnerability assessment and penetration testing on web and network environments.</li>
+          <li>SIEM & SOC monitoring using Wazuh and Splunk.</li>
+          <li>Log analysis, threat detection and incident monitoring.</li>
+          <li>Used Nmap, Burp Suite, Wireshark, Metasploit and OpenVAS.</li>
+          <li>Active Directory, Windows Server Administration and security hardening.</li>
+        </ul>
+      </div>
 
-<div class="grid md:grid-cols-2 gap-8">
+      <div class="exp-card">
+        <div class="exp-org">TryHackMe · PortSwigger · Personal Labs</div>
+        <div class="exp-role">Security Projects & Labs</div>
+        <div class="exp-year">Ongoing</div>
+        <ul class="exp-list">
+          <li>Practical labs in SQL Injection, enumeration, exploitation and SOC monitoring.</li>
+          <li>Wazuh SIEM deployment and enterprise threat simulation.</li>
+          <li>Web application testing using Burp Suite and OWASP methodologies.</li>
+          <li>Virtual lab environments with Kali Linux and Windows Server.</li>
+        </ul>
+      </div>
 
-<!-- Internship Card -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-
-<h3 class="text-2xl font-semibold mb-2 text-green-400">
-Cybersecurity Intern
-</h3>
-
-<p class="text-gray-300 mb-2">
-RedTeam Hackers Academy
-</p>
-
-<p class="text-gray-500 mb-4">
-2025
-</p>
-
-<ul class="text-gray-400 space-y-2 list-disc pl-5">
-<li>Performed vulnerability assessment and penetration testing on web and network environments.</li>
-
-<li>Worked with SIEM and SOC monitoring tools including Wazuh and Splunk.</li>
-
-<li>Conducted log analysis, threat detection and incident monitoring.</li>
-
-<li>Used tools such as Nmap, Burp Suite, Wireshark, Metasploit and OpenVAS.</li>
-
-<li>Practiced Active Directory, Windows Server Administration and security hardening.</li>
-</ul>
-
-</div>
-
-<!-- Additional Experience -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-
-<h3 class="text-2xl font-semibold mb-2 text-green-400">
-Security Projects & Labs
-</h3>
-
-<p class="text-gray-300 mb-2">
-Hands-on Cybersecurity Practice
-</p>
-
-<p class="text-gray-500 mb-4">
-TryHackMe | PortSwigger | Personal Labs
-</p>
-
-<ul class="text-gray-400 space-y-2 list-disc pl-5">
-
-<li>Completed practical labs in SQL Injection, enumeration, exploitation and SOC monitoring.</li>
-
-<li>Worked on Wazuh SIEM deployment and enterprise threat simulation projects.</li>
-
-<li>Performed web application testing using Burp Suite and OWASP methodologies.</li>
-
-<li>Built and managed virtual lab environments using Kali Linux and Windows Server.</li>
-
-</ul>
-
-</div>
-
-</div>
-
+    </div>
+  </div>
 </section>
 
 <!-- Certifications -->
-<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-right">
-<h2 class="text-3xl font-semibold mb-12 text-center">
-Certifications
-</h2>
+<section id="certs">
+  <div class="section-inner reveal">
+    <div class="section-label">// 04 — credentials</div>
+    <h2 class="section-title">Certifications</h2>
+    <div class="divider"></div>
+    <div class="certs-grid">
 
-<div class="grid md:grid-cols-2 gap-6">
+      <div class="cert-card">
+        <div class="cert-icon">🏆</div>
+        <div>
+          <h3>Certified Ethical Hacker (CEH v13)</h3>
+          <p>EC-Council</p>
+        </div>
+      </div>
 
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
+      <div class="cert-card">
+        <div class="cert-icon">🎖️</div>
+        <div>
+          <h3>Advanced Diploma in Cyber Defence</h3>
+          <p>RedTeam Hacker Academy</p>
+        </div>
+      </div>
 
-<h3 class="text-xl font-semibold mb-2">
-Certified Ethical Hacker (CEH v13)
-</h3>
+      <div class="cert-card">
+        <div class="cert-icon">🌐</div>
+        <div>
+          <h3>Cisco Labs Crash Course</h3>
+          <p>EC-Council</p>
+        </div>
+      </div>
 
-<p class="text-gray-400">
-EC-Council
-</p>
+      <div class="cert-card">
+        <div class="cert-icon">🕵️</div>
+        <div>
+          <h3>Dark Web, Anonymity & Cryptocurrency</h3>
+          <p>EC-Council</p>
+        </div>
+      </div>
 
-</div>
-
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-
-<h3 class="text-xl font-semibold mb-2">
-Advanced Diploma in Cyber Defence
-</h3>
-
-<p class="text-gray-400">
-RedTeam Hacker Academy
-</p>
-
-</div>
-
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-
-<h3 class="text-xl font-semibold mb-2">
-Cisco Labs Crash Course
-</h3>
-
-<p class="text-gray-400">
-EC-Council
-</p>
-
-</div>
-
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-
-<h3 class="text-xl font-semibold mb-2">
-Dark Web, Anonymity & Cryptocurrency
-</h3>
-
-<p class="text-gray-400">
-EC-Council
-</p>
-
-</div>
-
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- Tools & Technologies -->
-<section class="py-20 px-6 max-w-6xl mx-auto reveal reveal-right">
-<h2 class="text-3xl font-semibold mb-12 text-center">
-Tools & Technologies
-</h2>
+<!-- Tools -->
+<section id="tools">
+  <div class="section-inner reveal">
+    <div class="section-label">// 05 — arsenal</div>
+    <h2 class="section-title">Tools & Technologies</h2>
+    <div class="divider"></div>
+    <div class="tools-grid">
 
-<div class="grid md:grid-cols-3 gap-8">
+      <div class="tool-group">
+        <div class="tool-group-title">Recon & Scanning</div>
+        <ul class="tool-list">
+          <li>Nmap</li><li>Nessus</li><li>OpenVAS</li><li>Netdiscover</li>
+        </ul>
+      </div>
 
-<!-- Recon -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">Recon & Scanning</h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Nmap</li>
-<li>Nessus</li>
-<li>OpenVAS</li>
-<li>Netdiscover</li>
-</ul>
-</div>
+      <div class="tool-group">
+        <div class="tool-group-title">Web App Testing</div>
+        <ul class="tool-list">
+          <li>Burp Suite</li><li>OWASP ZAP</li><li>SQLMap</li><li>Dirsearch</li>
+        </ul>
+      </div>
 
-<!-- Web Testing -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">Web App Testing</h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Burp Suite</li>
-<li>OWASP ZAP</li>
-<li>SQLMap</li>
-<li>Dirsearch</li>
-</ul>
-</div>
+      <div class="tool-group">
+        <div class="tool-group-title">Exploitation</div>
+        <ul class="tool-list">
+          <li>Metasploit</li><li>Hydra</li><li>John the Ripper</li><li>Hashcat</li>
+        </ul>
+      </div>
 
-<!-- Exploitation -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">Exploitation</h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Metasploit</li>
-<li>Hydra</li>
-<li>John the Ripper</li>
-<li>Hashcat</li>
-</ul>
-</div>
+      <div class="tool-group">
+        <div class="tool-group-title">SOC & SIEM</div>
+        <ul class="tool-list">
+          <li>Splunk</li><li>Wazuh</li><li>ELK Stack</li>
+        </ul>
+      </div>
 
-<!-- SOC & Monitoring -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">SOC & SIEM</h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Splunk</li>
-<li>Wazuh</li>
-<li>ELK Stack</li>
-</ul>
-</div>
+      <div class="tool-group">
+        <div class="tool-group-title">Network Analysis</div>
+        <ul class="tool-list">
+          <li>Wireshark</li><li>tcpdump</li><li>Snort</li>
+        </ul>
+      </div>
 
-<!-- Network Analysis -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">Network Analysis</h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Wireshark</li>
-<li>tcpdump</li>
-<li>Snort</li>
-</ul>
-</div>
+      <div class="tool-group">
+        <div class="tool-group-title">Cloud Security</div>
+        <ul class="tool-list">
+          <li>Microsoft Azure</li><li>Microsoft Sentinel</li><li>AWS EC2</li>
+        </ul>
+      </div>
 
-  <!-- cloud security -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center"> Cloud Security & Cloud Computing </h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Microsoft Azure Cloud Security</li>
-<li> Microsoft Sentinel</li>
-<li> Microsoft Cloud Computing</li>
-</ul>
-</div>
-  
-<!-- Platforms -->
-<div class="card p-6 rounded-xl border-green-500 hover:scale-105 transition">
-<h3 class="text-xl mb-4 text-green-400 text-center">Platforms</h3>
-<ul class="space-y-2 text-gray-300 text-center">
-<li>Kali Linux</li>
-<li>Windows Server</li>
-<li>Linux Servers</li>
-<li>AWS EC2</li>
-</ul>
-</div>
+      <div class="tool-group">
+        <div class="tool-group-title">Platforms</div>
+        <ul class="tool-list">
+          <li>Kali Linux</li><li>Windows Server</li><li>Linux Servers</li>
+        </ul>
+      </div>
 
-</div>
+    </div>
+  </div>
 </section>
 
+<!-- Contact -->
+<section id="contact">
+  <div class="section-inner reveal">
+    <div class="section-label">// 06 — reach out</div>
+    <h2 class="section-title">Contact Me</h2>
+    <div class="divider"></div>
+    <div class="contact-wrap">
 
+      <div class="contact-info">
+        <h3>Let's Connect</h3>
+        <p>Open to cybersecurity roles, collaborations and freelance work. Whether it's a SOC position, penetration testing project or just a conversation about security — reach out anytime.</p>
+        <div class="social-links">
+          <a class="social-link" href="https://www.facebook.com/arjunaju02" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a class="social-link" href="https://x.com/p_p_kunjumon" target="_blank"><i class="fab fa-x-twitter"></i></a>
+          <a class="social-link" href="https://www.instagram.com/p_p_kunjumon" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a class="social-link" href="https://www.linkedin.com/in/arjun-a-454b85256" target="_blank"><i class="fab fa-linkedin"></i></a>
+          <a class="social-link" href="https://github.com/arjunarju123" target="_blank"><i class="fab fa-github"></i></a>
+          <a class="social-link" href="https://tryhackme.com/p/ppkunjumon" target="_blank"><i class="fas fa-skull-crossbones"></i></a>
+        </div>
+      </div>
 
-<!-- Contact Form -->
-<section class="py-20 text-center px-6 reveal reveal-left">
-<h4 class="text-3xl font-semibold mb-8">Contact Me</h4>
-<form id="contactForm" class="max-w-xl mx-auto space-y-3">
+      <form class="contact-form" id="contactForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" name="NAme" placeholder="Your full name" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" name="pHoNe" placeholder="Your phone number" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="eMaIl" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea name="MessAgE" placeholder="What would you like to discuss?" required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
 
-<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
-type="text" name="NAme" placeholder="Name" required>
-
-<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
-type="tel" name="pHoNe" placeholder="Phone Number" required>
-
-<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
-type="email" name="eMaIl" placeholder="Email Address" required>
-
-<input class="w-full p-3 bg-white text-black rounded-xl hover:scale-105 transition"
-type="text" name="MessAgE" placeholder="Message" required>
-
-<input class="w-full bg-green-600 p-3 cursor-pointer text-black rounded-xl hover:bg-green-700 transition"
-type="submit" value="SUBMIT">
-
-<!-- About -->
-<div class="mt-16 text-center leading-relaxed reveal reveal-right">
-<h2 class="text-green-400 text-xl mb-2">About Me</h2>
-<p>
-Cybersecurity professional with combined training and hands-on experience in SOC Operations, Network 
-Security, Vulnerability Assessment, Penetration Testing and Server Administration. Skilled in log monitoring, 
-security event analysis, incident response and identifying vulnerabilities in web and network environments.
-</p>
-</div>
-
-<!-- Social Media Icons -->
-<div class="flex justify-center gap-6 mt-6 text-2xl">
-
-<a href="https://www.facebook.com/arjunaju02" target="_blank"
-class="hover:text-blue-400 transition">
-<i class="fab fa-facebook"></i>
-</a>
-
-<a href="https://x.com/p_p_kunjumon" target="_blank"
-class="hover:text-gray-400 transition">
-<i class="fab fa-x-twitter"></i>
-</a>
-
-<a href="https://www.instagram.com/p_p_kunjumon?igsh=Zjg5eTM0eXUybXhk" target="_blank"
-class="hover:text-red-400 transition">
-<i class="fab fa-instagram"></i>
-</a>
-
-<a href="https://www.linkedin.com/in/arjun-a-454b85256"
-target="_blank"
-class="hover:text-blue-400 transition">
-<i class="fab fa-linkedin"></i>
-</a>
-
-<a href="https://github.com/arjunarju123" target="_blank"
-class="hover:text-gray-400 transition">
-<i class="fab fa-github"></i>
-</a>
-  
-</div>
-  
-</form>
-
-<p class="text-gray-500 mt-10">© 2026 Arjun</p>
-
+    </div>
+  </div>
 </section>
 
-<!-- Thank you popup -->
-<div id="thanksPopup"
-class="fixed inset-0 hidden items-center justify-center bg-black/70 overflow-hidden">
+<!-- Footer -->
+<footer>
+  <p>© 2026 Arjun — Built with precision, secured by design.</p>
+</footer>
 
-<div id="popupBox"
-class="bg-white text-black px-8 py-6 rounded-xl text-center popup-animate">
-
-<h2 class="text-xl font-semibold mb-2">✅ Thank You!</h2>
-<p>
-Submitted successfully.<br>
-We only use your details to respond!.
-</p>
-
+<!-- Popup -->
+<div class="popup-overlay" id="thanksPopup">
+  <div class="popup-box">
+    <div class="check">✅</div>
+    <h2>Message Sent!</h2>
+    <p>Thank you for reaching out. I'll get back to you shortly.</p>
+  </div>
 </div>
-
-<div id="blast"></div>
-
-</div>
-
 
 <script>
-// Reveal effect
-function handleScroll(){
-  document.querySelectorAll('.reveal').forEach(el=>{
-    if(el.getBoundingClientRect().top < window.innerHeight - 80){
-      el.classList.add('active');
-    }
-  });
+// ── Cursor ──
+const ring = document.getElementById('cursor-ring');
+const dot  = document.getElementById('cursor-dot');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+});
+function animCursor(){
+  rx += (mx-rx)*0.12;
+  ry += (my-ry)*0.12;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(animCursor);
 }
-window.addEventListener('scroll', handleScroll);
-setTimeout(handleScroll, 200);
+animCursor();
+document.querySelectorAll('a,button,.skill-chip').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ ring.style.transform='translate(-50%,-50%) scale(1.6)'; ring.style.borderColor='var(--accent2)'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.transform='translate(-50%,-50%) scale(1)'; ring.style.borderColor='var(--accent)'; });
+});
 
+// ── Nav mobile ──
+function toggleNav(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('#navLinks a').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+});
 
+// ── Reveal on scroll ──
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-// Cursor glow
-
-document.onmousemove = e=>{
-  const dot = document.createElement('div');
-  dot.className = 'cursor-dot';
-  dot.style.left = e.clientX+'px';
-  dot.style.top = e.clientY+'px';
-  document.body.appendChild(dot);
-  setTimeout(()=>dot.remove(),280);
-};  
-
-
-// Form submit
-document.getElementById("contactForm").addEventListener("submit",function(e){
+// ── Contact form ──
+document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
-
   fetch("https://script.google.com/macros/s/AKfycbw6ewGnAic3cLPz6xfXz74Ap3OfD1GSfflBwbrtCtMkporFLHE7EUS2AZRP4MwbVZYLEw/exec",{
     method:"POST",
     body:new FormData(this),
     mode:"no-cors"
   });
-
   this.reset();
-
-  const popup=document.getElementById("thanksPopup");
-  popup.classList.remove("hidden");
-  popup.classList.add("flex");
-
-  setTimeout(()=>{
-    popup.classList.add("hidden");
-    popup.classList.remove("flex");
-  },4000);
+  const p = document.getElementById('thanksPopup');
+  p.classList.add('active');
+  setTimeout(()=>p.classList.remove('active'),4000);
+});
+document.getElementById('thanksPopup').addEventListener('click',function(){
+  this.classList.remove('active');
 });
 </script>
-
 </body>
 </html>
-
