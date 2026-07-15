@@ -33,7 +33,6 @@ body {
   cursor: none;
 }
 
-/* ── Cursor ── */
 #cursor-ring {
   position: fixed;
   width: 36px; height: 36px;
@@ -59,7 +58,6 @@ body {
   body { cursor:auto; }
 }
 
-/* ── Background grid ── */
 body::before {
   content:'';
   position:fixed; inset:0;
@@ -70,7 +68,6 @@ body::before {
   z-index:-2;
 }
 
-/* ── Navbar ── */
 nav {
   position: fixed; top:0; left:0; right:0;
   z-index:100;
@@ -123,7 +120,6 @@ nav {
   transition: all 0.3s;
 }
 
-/* Mobile nav */
 @media(max-width:768px){
   .nav-links {
     display: none;
@@ -138,14 +134,11 @@ nav {
   .nav-links.open { display:flex; }
   .nav-hamburger { display:flex; }
 }
-
-/* Tight nav for mid-size screens */
 @media(min-width:769px) and (max-width:1024px){
   .nav-links { gap: 1.2rem; }
   .nav-links a { font-size: 0.68rem; }
 }
 
-/* ── Hero ── */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -156,7 +149,6 @@ nav {
   padding: 6rem clamp(1.5rem,5vw,4rem) 4rem;
   position: relative;
 }
-
 .hero-inner {
   max-width: 700px;
   width: 100%;
@@ -165,7 +157,6 @@ nav {
   flex-direction: column;
   align-items: center;
 }
-
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -188,11 +179,7 @@ nav {
   background:var(--accent);
   animation: pulse 2s infinite;
 }
-
-@keyframes pulse {
-  0%,100%{ opacity:1; }
-  50%{ opacity:0.3; }
-}
+@keyframes pulse { 0%,100%{ opacity:1; } 50%{ opacity:0.3; } }
 
 .hero-avatar {
   width: clamp(100px,15vw,140px);
@@ -209,7 +196,6 @@ nav {
   transform: scale(1.05);
   box-shadow: 0 0 60px rgba(0,255,140,0.25);
 }
-
 .hero h1 {
   font-size: clamp(2.5rem,6vw,5rem);
   font-weight: 800;
@@ -221,7 +207,6 @@ nav {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
 .hero-title {
   font-family: var(--mono);
   font-size: clamp(0.72rem, 1.5vw, 0.9rem);
@@ -231,15 +216,30 @@ nav {
   margin: 1rem 0 0.5rem;
   animation: fadeDown 0.7s ease 0.3s both;
 }
-
 .hero-location {
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--muted);
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.4rem;
   animation: fadeDown 0.7s ease 0.35s both;
 }
-
+.hero-contact {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  justify-content: center;
+  animation: fadeDown 0.7s ease 0.38s both;
+}
+.hero-contact a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.hero-contact a:hover { color: var(--accent); }
 .hero-bio {
   max-width: 560px;
   font-size: 0.95rem;
@@ -248,7 +248,6 @@ nav {
   margin-bottom: 2.5rem;
   animation: fadeDown 0.7s ease 0.4s both;
 }
-
 .hero-links {
   display: flex;
   flex-wrap: wrap;
@@ -285,16 +284,11 @@ nav {
   border-color: var(--accent);
   font-weight: 700;
 }
-.hero-links a.primary:hover {
-  background: #00e07a;
-  color: #000;
-}
+.hero-links a.primary:hover { background: #00e07a; color: #000; }
 
-/* ── Scroll hint ── */
 .scroll-hint {
   position: absolute;
-  bottom: 2rem;
-  left: 50%;
+  bottom: 2rem; left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
@@ -307,8 +301,7 @@ nav {
   animation: fadeDown 1s ease 0.8s both;
 }
 .scroll-hint-line {
-  width: 1px;
-  height: 40px;
+  width: 1px; height: 40px;
   background: linear-gradient(var(--accent),transparent);
   animation: scrollLine 1.5s ease infinite;
 }
@@ -318,10 +311,8 @@ nav {
   100%{ opacity:0; transform:scaleY(0); transform-origin:bottom; }
 }
 
-/* ── Section base ── */
 section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
 .section-inner { max-width: 1100px; margin: 0 auto; }
-
 .section-label {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -337,35 +328,20 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   margin-bottom: 3rem;
 }
 
-/* ── Reveal ── */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ── Skills ── */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px,1fr));
   gap: 1rem;
 }
-
-/* Desktop: always 3 columns minimum */
-@media(min-width:900px){
-  .skills-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media(min-width:1100px){
-  .skills-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px,1fr));
-  }
-}
+@media(min-width:900px){ .skills-grid { grid-template-columns: repeat(3, 1fr); } }
+@media(min-width:1100px){ .skills-grid { grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); } }
 
 .skill-chip {
   background: var(--surface);
@@ -395,21 +371,15 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   transform: translateY(-3px);
   color: var(--accent);
 }
-.skill-icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-  display: block;
-}
+.skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
 
-/* ── Projects ── */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
   gap: 1.5rem;
 }
-@media(min-width:900px){
-  .projects-grid { grid-template-columns: repeat(3, 1fr); }
-}
+@media(min-width:900px){ .projects-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(min-width:1100px){ .projects-grid { grid-template-columns: repeat(4, 1fr); } }
 
 .project-card {
   background: var(--surface);
@@ -444,19 +414,17 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
-.project-card h3 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 0.6rem;
-  line-height: 1.3;
-}
-.project-card p {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.7;
+.project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.3; }
+.project-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.7; }
+.project-tech {
+  margin-top: 1rem;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent3);
+  line-height: 1.6;
 }
 .project-arrow {
-  margin-top: 1.25rem;
+  margin-top: 1rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   color: var(--accent);
@@ -465,15 +433,14 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   gap: 0.4rem;
 }
 
-/* ── Experience ── */
+/* Experience timeline style */
 .exp-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.5rem;
 }
-@media(min-width:768px){
-  .exp-grid { grid-template-columns: repeat(2, 1fr); }
-}
+@media(min-width:768px){ .exp-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(min-width:1100px){ .exp-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .exp-card {
   background: var(--surface);
@@ -481,6 +448,15 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   border-radius: 14px;
   padding: 2rem;
   transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.exp-card::before {
+  content:'';
+  position:absolute; top:0; left:0;
+  width: 3px; height: 100%;
+  background: linear-gradient(var(--accent), var(--accent2));
+  border-radius: 3px 0 0 3px;
 }
 .exp-card:hover {
   border-color: rgba(0,255,140,0.3);
@@ -494,25 +470,25 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   text-transform: uppercase;
   margin-bottom: 0.3rem;
 }
-.exp-role {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-}
+.exp-role { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem; }
 .exp-year {
   font-family: var(--mono);
   font-size: 0.72rem;
   color: var(--muted);
   margin-bottom: 1.25rem;
-}
-.exp-list {
-  list-style: none;
   display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 0.4rem;
 }
+.exp-year::before {
+  content:'';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
 .exp-list li {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: var(--muted);
   line-height: 1.6;
   padding-left: 1.1rem;
@@ -526,18 +502,13 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   top: 0.25rem;
 }
 
-/* ── Certifications ── */
 .certs-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
   gap: 1rem;
 }
-@media(min-width:900px){
-  .certs-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media(min-width:1100px){
-  .certs-grid { grid-template-columns: repeat(4, 1fr); }
-}
+@media(min-width:900px){ .certs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(min-width:1100px){ .certs-grid { grid-template-columns: repeat(4, 1fr); } }
 
 .cert-card {
   background: var(--surface);
@@ -549,39 +520,18 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   align-items: flex-start;
   gap: 1rem;
 }
-.cert-card:hover {
-  border-color: rgba(0,255,140,0.3);
-  transform: translateY(-3px);
-}
-.cert-icon {
-  font-size: 1.5rem;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-.cert-card h3 {
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin-bottom: 0.3rem;
-  line-height: 1.3;
-}
-.cert-card p {
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  color: var(--muted);
-}
+.cert-card:hover { border-color: rgba(0,255,140,0.3); transform: translateY(-3px); }
+.cert-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 0.1rem; }
+.cert-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 0.3rem; line-height: 1.3; }
+.cert-card p { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
 
-/* ── Tools ── */
 .tools-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px,1fr));
   gap: 1.25rem;
 }
-@media(min-width:900px){
-  .tools-grid { grid-template-columns: repeat(4, 1fr); }
-}
-@media(min-width:1100px){
-  .tools-grid { grid-template-columns: repeat(7, 1fr); }
-}
+@media(min-width:900px){ .tools-grid { grid-template-columns: repeat(4, 1fr); } }
+@media(min-width:1100px){ .tools-grid { grid-template-columns: repeat(7, 1fr); } }
 
 .tool-group {
   background: var(--surface);
@@ -590,10 +540,7 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   padding: 1.5rem;
   transition: all 0.3s;
 }
-.tool-group:hover {
-  border-color: rgba(0,255,140,0.25);
-  transform: translateY(-2px);
-}
+.tool-group:hover { border-color: rgba(0,255,140,0.25); transform: translateY(-2px); }
 .tool-group-title {
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -605,12 +552,7 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   border-bottom: 1px solid var(--border);
   white-space: nowrap;
 }
-.tool-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+.tool-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
 .tool-list li {
   font-size: 0.83rem;
   color: var(--muted);
@@ -626,36 +568,35 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   flex-shrink: 0;
 }
 
-/* ── Contact ── */
 .contact-wrap {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2.5rem;
 }
-@media(min-width:768px){
-  .contact-wrap {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-}
+@media(min-width:768px){ .contact-wrap { grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; } }
 
-.contact-info h3 {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-.contact-info p {
-  font-size: 0.9rem;
-  color: var(--muted);
-  line-height: 1.8;
+.contact-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1rem; }
+.contact-info p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
   margin-bottom: 2rem;
 }
-.social-links {
+.contact-detail a {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-decoration: none;
   display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  transition: color 0.2s;
 }
+.contact-detail a:hover { color: var(--accent); }
+.contact-detail a i { color: var(--accent); width: 16px; }
+
+.social-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 .social-link {
   width: 42px; height: 42px;
   border: 1px solid var(--border);
@@ -699,13 +640,8 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   width: 100%;
 }
 .contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: rgba(0,255,140,0.5);
-}
-.contact-form textarea {
-  resize: vertical;
-  min-height: 110px;
-}
+.contact-form textarea:focus { border-color: rgba(0,255,140,0.5); }
+.contact-form textarea { resize: vertical; min-height: 110px; }
 .contact-form input::placeholder,
 .contact-form textarea::placeholder { color: var(--muted); }
 
@@ -730,7 +666,6 @@ section { padding: clamp(4rem,8vh,6rem) clamp(1.5rem,5vw,4rem); }
   box-shadow: 0 8px 24px rgba(0,255,140,0.3);
 }
 
-/* ── Footer ── */
 footer {
   text-align: center;
   padding: 2rem;
@@ -740,45 +675,145 @@ footer {
   color: var(--muted);
 }
 
-/* ── Thank you popup ── */
 .popup-overlay {
   position:fixed; inset:0;
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(12px);
   display:none;
   align-items:center;
   justify-content:center;
   z-index:1000;
+  overflow:hidden;
 }
 .popup-overlay.active { display:flex; }
+
+/* Shockwave rings */
+.popup-overlay.active::before,
+.popup-overlay.active::after {
+  content:'';
+  position:absolute;
+  width:10px; height:10px;
+  border-radius:50%;
+  border: 2px solid var(--accent);
+  animation: shockwave 1.2s ease-out both;
+}
+.popup-overlay.active::after {
+  border-color: var(--accent2);
+  animation-delay: 0.2s;
+}
+@keyframes shockwave {
+  0%  { transform:scale(1);   opacity:1; }
+  100%{ transform:scale(80);  opacity:0; }
+}
+
 .popup-box {
   background: var(--surface2);
-  border: 1px solid rgba(0,255,140,0.3);
+  border: 1px solid rgba(0,255,140,0.4);
   border-radius: 16px;
   padding: 2.5rem 3rem;
   text-align: center;
-  max-width: 380px;
+  max-width: 400px;
   width: 90%;
-  animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1) both;
+  position: relative;
+  overflow: hidden;
+  animation: blastIn 0.5s cubic-bezier(.17,.67,.35,1.2) both;
+  box-shadow: 0 0 60px rgba(0,255,140,0.2), 0 0 120px rgba(0,255,140,0.05);
 }
-@keyframes popIn {
-  from{ opacity:0; transform:scale(0.7); }
-  to{ opacity:1; transform:scale(1); }
+@keyframes blastIn {
+  0%  { opacity:0; transform:scale(2.5); filter:blur(12px); }
+  60% { opacity:1; transform:scale(0.95); filter:blur(0); }
+  100%{ transform:scale(1); }
 }
-.popup-box .check { font-size: 3rem; margin-bottom: 1rem; }
-.popup-box h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
-.popup-box p { font-size: 0.85rem; color: var(--muted); }
 
-/* ── Animations ── */
+/* Scan line sweep */
+.popup-box::before {
+  content:'';
+  position:absolute; top:-100%; left:0; right:0;
+  height:40%;
+  background: linear-gradient(transparent, rgba(0,255,140,0.06), transparent);
+  animation: scanSweep 1.5s ease 0.3s both;
+}
+@keyframes scanSweep {
+  from{ top:-40%; }
+  to  { top:140%; }
+}
+
+/* Glitch border flash */
+.popup-box::after {
+  content:'';
+  position:absolute; inset:0;
+  border-radius:16px;
+  border: 2px solid var(--accent);
+  opacity:0;
+  animation: borderFlash 0.6s ease 0.1s both;
+}
+@keyframes borderFlash {
+  0%  { opacity:1; transform:scale(1.05); }
+  50% { opacity:0.5; }
+  100%{ opacity:0; transform:scale(1); }
+}
+
+.popup-skull {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+  display:block;
+  animation: skullDrop 0.6s cubic-bezier(.34,1.56,.64,1) 0.3s both;
+  filter: drop-shadow(0 0 12px var(--accent));
+}
+@keyframes skullDrop {
+  from{ opacity:0; transform:translateY(-30px) rotate(-15deg); }
+  to  { opacity:1; transform:translateY(0) rotate(0deg); }
+}
+
+.popup-tag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  animation: fadeUp 0.5s ease 0.5s both;
+}
+.popup-box h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  animation: fadeUp 0.5s ease 0.6s both;
+  background: linear-gradient(135deg, #fff 40%, var(--accent));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.popup-box p {
+  font-size: 0.83rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  animation: fadeUp 0.5s ease 0.7s both;
+  line-height:1.6;
+}
+.popup-close {
+  margin-top:1.5rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  letter-spacing:0.1em;
+  animation: fadeUp 0.5s ease 0.85s both;
+  cursor:pointer;
+}
+.popup-close:hover { color: var(--accent); }
+
+@keyframes fadeUp {
+  from{ opacity:0; transform:translateY(12px); }
+  to  { opacity:1; transform:translateY(0); }
+}
+
 @keyframes fadeDown {
   from { opacity:0; transform:translateY(-20px); }
   to   { opacity:1; transform:translateY(0); }
 }
 
-/* Divider */
 .divider {
-  width: 40px;
-  height: 2px;
+  width: 40px; height: 2px;
   background: linear-gradient(90deg, var(--accent), transparent);
   margin-bottom: 3rem;
 }
@@ -787,11 +822,9 @@ footer {
 
 <body>
 
-<!-- Custom cursor -->
 <div id="cursor-ring"></div>
 <div id="cursor-dot"></div>
 
-<!-- Navbar -->
 <nav>
   <div class="nav-logo">Arjun.sec</div>
   <ul class="nav-links" id="navLinks">
@@ -812,14 +845,19 @@ footer {
   <div class="hero-inner">
     <div class="hero-badge">Available for opportunities</div>
     <img src="assets/Profile.png" alt="Arjun" class="hero-avatar">
-    <h1>Arjun</h1>
-    <p class="hero-title">Cybersecurity Specialist · SOC & VAPT</p>
-    <p class="hero-location"><i class="fas fa-location-dot" style="color:var(--accent);margin-right:.4rem;"></i>Kerala, India</p>
+    <h1>Arjun A</h1>
+    <p class="hero-title">SOC Analyst · Cybersecurity Engineer · Threat Detection · Network Security · Server Administration</p>
+    <p class="hero-location"><i class="fas fa-location-dot" style="color:var(--accent);margin-right:.4rem;"></i>Kerala, India </p>
+    <div class="hero-contact">
+      <a href="tel:+918943457503"><i class="fas fa-phone" style="color:var(--accent);margin-right:.3rem;"></i>+91 89434 57503</a>
+      <a href="mailto:arjunarumughan02@gmail.com"><i class="fas fa-envelope" style="color:var(--accent);margin-right:.3rem;"></i>arjunarumughan02@gmail.com</a>
+      <a href="https://arjun-sec.in" target="_blank"><i class="fas fa-globe" style="color:var(--accent);margin-right:.3rem;"></i>arjun-sec.in</a>
+    </div>
     <p class="hero-bio">
-      Cybersecurity professional with hands-on experience in SOC monitoring, SIEM deployment, threat detection, vulnerability assessment and penetration testing. Skilled in Wazuh, Splunk, Burp Suite, Wireshark, OpenVAS, Azure and Windows Server Administration.
+      CEH-certified Cybersecurity professional with hands-on experience in SOC operations, SIEM monitoring, incident response, vulnerability assessment and threat detection. Skilled in Wazuh SIEM, Microsoft Sentinel, Sysmon, MITRE ATT&CK, OpenVAS, Wireshark, Burp Suite and Windows Server administration.
     </p>
     <div class="hero-links">
-      <a href="assets/Arjun_Arumughan_Resume.pdf" download class="primary"><i class="fas fa-download"></i> Resume</a>
+      <a href="assets/Arjun_A_CV.pdf" download class="primary"><i class="fas fa-download"></i> Resume</a>
       <a href="https://github.com/arjunarju123" target="_blank"><i class="fab fa-github"></i> GitHub</a>
       <a href="https://tryhackme.com/p/ppkunjumon" target="_blank"><i class="fas fa-skull-crossbones"></i> TryHackMe</a>
       <a href="https://www.linkedin.com/in/arjun-a-454b85256" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
@@ -849,6 +887,9 @@ footer {
       <div class="skill-chip"><span class="skill-icon">🔒</span>Incident Response</div>
       <div class="skill-chip"><span class="skill-icon">🛡️</span>Network Security</div>
       <div class="skill-chip"><span class="skill-icon">🖥️</span>Server Hardening</div>
+      <div class="skill-chip"><span class="skill-icon">🔗</span>Network Administration</div>
+      <div class="skill-chip"><span class="skill-icon">⚙️</span>Server Administration</div>
+      <div class="skill-chip"><span class="skill-icon">🧱</span>Firewall & IDS/IPS</div>
     </div>
   </div>
 </section>
@@ -864,21 +905,32 @@ footer {
       <a class="project-card" href="https://github.com/arjunarju123/Security-Operations-SOC---Enterprise-EDR-Threat-Hunting-Grid" target="_blank">
         <div class="project-tag">SOC · SIEM · EDR</div>
         <h3>SOC — Enterprise EDR & Threat Hunting Grid</h3>
-        <p>Deployed Wazuh SIEM with EDR capabilities and simulated enterprise-level threat scenarios for real-world detection practice.</p>
+        <p>Built an enterprise SOC lab with Wazuh SIEM monitoring Windows Server and Ubuntu endpoints. Simulated ransomware (MITRE T1490) and validated detection through SIEM alerts.</p>
+        <div class="project-tech">Wazuh · Sysmon · MITRE ATT&CK · Atomic RedTeam · FIM</div>
         <div class="project-arrow"><i class="fab fa-github"></i> View on GitHub →</div>
       </a>
 
       <a class="project-card" href="https://github.com/arjunarju123/Vulnvision-360" target="_blank">
         <div class="project-tag">VAPT · Compliance · Automation</div>
         <h3>VulnVision 360</h3>
-        <p>A continuous compliance and threat exposure engine built for persistent vulnerability tracking across enterprise environments.</p>
+        <p>Continuous compliance and threat exposure engine for persistent vulnerability tracking. Automated asset discovery, CVSS-based prioritization and CIS Benchmark assessments.</p>
+        <div class="project-tech">OpenVAS · OpenSCAP · Nmap · CVSS · CIS Benchmarks · Bash</div>
         <div class="project-arrow"><i class="fab fa-github"></i> View on GitHub →</div>
       </a>
+
+      <div class="project-card" style="cursor:default;">
+        <div class="project-tag">Server · Active Directory</div>
+        <h3>Windows Server 2016 Domain Environment Lab</h3>
+        <p>Built a complete Active Directory domain in VirtualBox. Configured DNS, DHCP, AD DS, users, groups, OUs and Group Policy Objects for centralized administration.</p>
+        <div class="project-tech">Windows Server 2016 · Active Directory · DNS · DHCP · GPO · VirtualBox</div>
+        <div class="project-arrow" style="color:var(--muted);">Personal Lab</div>
+      </div>
 
       <div class="project-card" style="cursor:default;">
         <div class="project-tag">Server · Hardening</div>
         <h3>Server Administration & Security Hardening</h3>
         <p>Configured Windows Server and Linux environments with security best practices, access controls and audit policies.</p>
+        <div class="project-tech">Windows Server · Linux · Access Control · Audit Policies</div>
         <div class="project-arrow" style="color:var(--muted);">Personal Lab</div>
       </div>
 
@@ -895,27 +947,41 @@ footer {
     <div class="exp-grid">
 
       <div class="exp-card">
-        <div class="exp-org">RedTeam Hackers Academy</div>
-        <div class="exp-role">Cybersecurity Intern</div>
-        <div class="exp-year">2025</div>
+        <div class="exp-org">Infotact Solutions · Bangalore, India</div>
+        <div class="exp-role">Security Admin Associate L1</div>
+        <div class="exp-year">Jan 2026 – Mar 2026 · Internship</div>
+        <ul class="exp-list">
+          <li>Deployed Wazuh SIEM across Windows Server and Ubuntu endpoints to centralize security monitoring.</li>
+          <li>Developed custom detection rules mapped to MITRE ATT&CK techniques.</li>
+          <li>Investigated security alerts and validated ransomware detection using Atomic Red Team.</li>
+          <li>Conducted authenticated vulnerability assessments using OpenVAS and prioritized remediation based on CVSS.</li>
+          <li>Configured Active Response to automatically block SSH brute-force attacks.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-org">RedTeam Hacker Academy</div>
+        <div class="exp-role">Cybersecurity Training</div>
+        <div class="exp-year">2025 · Training Internship</div>
         <ul class="exp-list">
           <li>Vulnerability assessment and penetration testing on web and network environments.</li>
           <li>SIEM & SOC monitoring using Wazuh and Splunk.</li>
           <li>Log analysis, threat detection and incident monitoring.</li>
           <li>Used Nmap, Burp Suite, Wireshark, Metasploit and OpenVAS.</li>
-          <li>Active Directory, Windows Server Administration and security hardening.</li>
+          <li>Active Directory, Windows Server administration and security hardening.</li>
         </ul>
       </div>
 
       <div class="exp-card">
         <div class="exp-org">TryHackMe · PortSwigger · Personal Labs</div>
-        <div class="exp-role">Security Projects & Labs</div>
+        <div class="exp-role">Self-Directed Security Practice</div>
         <div class="exp-year">Ongoing</div>
         <ul class="exp-list">
-          <li>Practical labs in SQL Injection, enumeration, exploitation and SOC monitoring.</li>
-          <li>Wazuh SIEM deployment and enterprise threat simulation.</li>
+          <li>Practical labs in SQL Injection, XSS, enumeration, exploitation and SOC monitoring.</li>
+          <li>Wazuh SIEM deployment and enterprise threat simulation in home lab.</li>
           <li>Web application testing using Burp Suite and OWASP methodologies.</li>
           <li>Virtual lab environments with Kali Linux and Windows Server.</li>
+          <li>Active participation in CTF challenges and security research.</li>
         </ul>
       </div>
 
@@ -999,7 +1065,7 @@ footer {
       <div class="tool-group">
         <div class="tool-group-title">SOC & SIEM</div>
         <ul class="tool-list">
-          <li>Splunk</li><li>Wazuh</li><li>ELK Stack</li>
+          <li>Splunk</li><li>Wazuh</li><li>ELK Stack</li><li>Sentinel</li>
         </ul>
       </div>
 
@@ -1013,7 +1079,7 @@ footer {
       <div class="tool-group">
         <div class="tool-group-title">Cloud Security</div>
         <ul class="tool-list">
-          <li>Microsoft Azure</li><li>Microsoft Sentinel</li><li>AWS EC2</li>
+          <li>Microsoft Azure</li><li>MS Sentinel</li><li>AWS EC2</li>
         </ul>
       </div>
 
@@ -1039,6 +1105,11 @@ footer {
       <div class="contact-info">
         <h3>Let's Connect</h3>
         <p>Open to cybersecurity roles, collaborations and freelance work. Whether it's a SOC position, penetration testing project or just a conversation about security — reach out anytime.</p>
+        <div class="contact-detail">
+          <a href="tel:+918943457503"><i class="fas fa-phone"></i>+91 89434 57503</a>
+          <a href="mailto:arjunarumughan02@gmail.com"><i class="fas fa-envelope"></i>arjunarumughan02@gmail.com</a>
+          <a href="https://arjun-sec.in" target="_blank"><i class="fas fa-globe"></i>arjun-sec.in</a>
+        </div>
         <div class="social-links">
           <a class="social-link" href="https://www.linkedin.com/in/arjun-a-454b85256" target="_blank"><i class="fab fa-linkedin"></i></a>
           <a class="social-link" href="https://github.com/arjunarju123" target="_blank"><i class="fab fa-github"></i></a>
@@ -1075,22 +1146,21 @@ footer {
   </div>
 </section>
 
-<!-- Footer -->
 <footer>
-  <p>© 2026 Arjun — Built with precision, secured by design.</p>
+  <p>© 2026 Arjun Arumughan — Built with precision, secured by design. &nbsp;·&nbsp; <a href="https://arjun-sec.in" style="color:var(--accent);text-decoration:none;">arjun-sec.in</a></p>
 </footer>
 
-<!-- Popup -->
 <div class="popup-overlay" id="thanksPopup">
   <div class="popup-box">
-    <div class="check">✅</div>
-    <h2>Message Sent!</h2>
+    <span class="popup-skull">💀</span>
+    <div class="popup-tag">// Thank you</div>
+    <h2>Target Compromised.</h2>
     <p>Thank you for reaching out. I'll get back to you shortly.</p>
+    <div class="popup-close" onclick="document.getElementById('thanksPopup').classList.remove('active')">[ dismiss ]</div>
   </div>
 </div>
 
 <script>
-// ── Cursor ──
 const ring = document.getElementById('cursor-ring');
 const dot  = document.getElementById('cursor-dot');
 let mx=0,my=0,rx=0,ry=0;
@@ -1099,8 +1169,7 @@ document.addEventListener('mousemove',e=>{
   dot.style.left=mx+'px'; dot.style.top=my+'px';
 });
 function animCursor(){
-  rx += (mx-rx)*0.12;
-  ry += (my-ry)*0.12;
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
   ring.style.left=rx+'px'; ring.style.top=ry+'px';
   requestAnimationFrame(animCursor);
 }
@@ -1110,7 +1179,6 @@ document.querySelectorAll('a,button,.skill-chip').forEach(el=>{
   el.addEventListener('mouseleave',()=>{ ring.style.transform='translate(-50%,-50%) scale(1)'; ring.style.borderColor='var(--accent)'; });
 });
 
-// ── Nav mobile ──
 function toggleNav(){
   document.getElementById('navLinks').classList.toggle('open');
 }
@@ -1118,19 +1186,15 @@ document.querySelectorAll('#navLinks a').forEach(a=>{
   a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
 });
 
-// ── Reveal on scroll ──
 const observer = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
 },{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
-// ── Contact form ──
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
   fetch("https://script.google.com/macros/s/AKfycbw6ewGnAic3cLPz6xfXz74Ap3OfD1GSfflBwbrtCtMkporFLHE7EUS2AZRP4MwbVZYLEw/exec",{
-    method:"POST",
-    body:new FormData(this),
-    mode:"no-cors"
+    method:"POST", body:new FormData(this), mode:"no-cors"
   });
   this.reset();
   const p = document.getElementById('thanksPopup');
