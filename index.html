@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arjun — Cybersecurity Specialist</title>
+<link rel="icon" type="image/png" href="assets/logo-a.png">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -80,6 +81,17 @@ nav {
   font-family:var(--mono); font-size:1.1rem;
   color:var(--accent); letter-spacing:0.08em; flex-shrink:0;
   text-shadow:var(--glow2);
+  display:flex; align-items:center; gap:0.6rem;
+  text-decoration:none;
+}
+.nav-logo-img {
+  height:34px; width:auto;
+  filter:drop-shadow(0 0 6px rgba(0,200,255,0.5));
+  transition:transform 0.3s, filter 0.3s;
+}
+.nav-logo:hover .nav-logo-img {
+  transform:scale(1.08);
+  filter:drop-shadow(0 0 10px rgba(0,255,140,0.7));
 }
 .nav-links { display:flex; gap:2rem; list-style:none; align-items:center; }
 .nav-links a {
@@ -437,7 +449,10 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Arjun-sec</div>
+ <a href="#home" class="nav-logo">
+  <img src="assets/logo-a.png" alt="Arjun-sec logo" class="nav-logo-img">
+  <span>Arjun-sec</span>
+</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
