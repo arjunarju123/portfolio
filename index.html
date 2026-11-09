@@ -707,16 +707,28 @@ const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isInt
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 // ── Contact form ──
-document.getElementById('contactForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  fetch("https://script.google.com/macros/s/AKfycbw6ewGnAic3cLPz6xfXz74Ap3OfD1GSfflBwbrtCtMkporFLHE7EUS2AZRP4MwbVZYLEw/exec",{method:"POST",body:new FormData(this),mode:"no-cors"});
-  this.reset();
-  const p=document.getElementById('thanksPopup');
-  p.classList.add('active');
-  setTimeout(()=>p.classList.remove('active'),4000);
-});
-document.getElementById('thanksPopup').addEventListener('click',function(){this.classList.remove('active');});
 
+document.getElementById('contactForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  const form = this;
+  const btn  = form.querySelector('.btn-submit');
+  const old  = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  fetch("https://script.google.com/macros/s/AKfycbw6ewGnAic3cLPz6xfXz74Ap3OfD1GSfflBwbrtCtMkporFLHE7EUS2AZRP4MwbVZYLEw/exec", {
+    method: "POST",
+    body: new FormData(form),
+    mode: "no-cors"
+  }).finally(() => {
+    form.reset();
+    btn.disabled = false;
+    btn.textContent = old;
+    const p = document.getElementById('thanksPopup');
+    p.classList.add('active');
+    setTimeout(() => p.classList.remove('active'), 4000);
+  });
+});
 // ── Grid + Light Pulse Animation ──
 (function(){
   const canvas=document.getElementById('grid-canvas');
